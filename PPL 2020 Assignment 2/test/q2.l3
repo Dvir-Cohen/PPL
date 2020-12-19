@@ -1,0 +1,62 @@
+(define last-element
+   (lambda (lst)
+           (if (eq? (cdr lst) '())
+                  (car lst)
+                  (last-element (cdr lst)))
+  )
+)
+
+(define power
+    (lambda (n1 n2)
+      (if (eq? n2 0)
+        1
+          (* n1 (power n1 (- n2 1) )))
+    )
+)
+
+(define sum-lst-power
+    (lambda (lst n)
+       (if (eq? lst '())
+        0
+         (+ (power (car lst) n) (sum-lst-power (cdr lst) n))
+    )
+))
+      
+
+
+(define is-narcissistic
+  (lambda (lst)
+    (if (eq? (num-from-digits lst) (sum-lst-power lst (degree (num-from-digits lst))))
+        #t
+        #f)
+)
+)
+
+ (define degree
+  (lambda (num)
+   (if (< (/ num 10) 1)
+       1
+       (+ 1 (degree(/ num 10)))))) 
+
+
+(define num-from-digits
+  (lambda (lst)
+    (if (eq? lst '())
+        0
+        (num-from-digits-helper lst (length lst)))))
+
+
+
+(define length
+  (lambda (lst)
+   (if (eq? (cdr lst) '())
+       0
+       (+ 1 (length(cdr lst))))))
+
+
+(define num-from-digits-helper
+  (lambda (lst pow)
+             (if (eq? (cdr lst) '())
+                    (car lst)
+                     (+ (* (power 10 pow)(car lst)) (num-from-digits-helper (cdr lst) (- pow 1))))))
+
